@@ -7,6 +7,12 @@ html {
     box-sizing: inherit;
   }
 
+:root{
+    --padding-form-overwrite: 0.5rem;
+    --max-width-input-overwrite: 50%;
+}
+
+/* Add new todo page */
 body{
     padding: 1rem;
 }
@@ -14,15 +20,10 @@ body{
 h1{
     display: flex;
     justify-content: center;
+    padding-bottom: 1rem;
 }
 
-button.btn.btn-primary{
-    display: flex;
-    width: 25%;
-    text-align: center;
-    justify-self: center;
-}
-
+/* PopUp 'add new todo' */
 .modal-content{
     padding: 1rem;
 }
@@ -33,28 +34,38 @@ button.btn.btn-primary{
     line-height: 2.5rem;
 }
 
+/* Add new toDo Form */
 form{
     min-width: 100%;
 }
 
 .description{
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
+    padding: var(--padding-form-overwrite);
+    /* border: 1px solid green; */
 }
 
 .priority{
     display: flex;
-    justify-content: space-around;
-    border: 1px solid red;
+    justify-content: space-between;
+    padding: var(--padding-form-overwrite);
+    /* border: 1px solid blue; */
 }
 
-.form-control#ranking{
-    max-width: 25%;
-}
-
-.input-group.date{
+.datepicker{
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
+    /* max-width: var(--max-width-input-overwrite); */
+    /* border: 1px solid pink; */
+}
+
+.form-control{
+    display: flex;
+    justify-content: end;
+    max-width: var(--max-width-input-overwrite);
+    border-radius: 10px;
+    /* border: 1px solid black; */
 }
 
 .modal-footer{
