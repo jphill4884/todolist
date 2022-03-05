@@ -1,3 +1,67 @@
-.todos {
-    display: flex;
+html {
+    box-sizing: border-box;
+  }
+  *,
+  *:before,
+  *:after {
+    box-sizing: inherit;
+  }
+
+body{
+    padding: 1rem;
 }
+
+h1{
+    display: flex;
+    justify-content: center;
+}
+
+button.btn.btn-primary{
+    display: flex;
+    width: 25%;
+    text-align: center;
+    justify-self: center;
+}
+
+.modal-content{
+    padding: 1rem;
+}
+
+.modal-body{
+    display: flex;
+    justify-content: space-around;
+    line-height: 2.5rem;
+}
+
+form{
+    min-width: 100%;
+}
+
+.description{
+    display: flex;
+    justify-content: space-around;
+}
+
+.priority{
+    display: flex;
+    justify-content: space-around;
+    border: 1px solid red;
+}
+
+.form-control#ranking{
+    max-width: 25%;
+}
+
+.input-group.date{
+    display: flex;
+    justify-content: space-around;
+}
+
+.modal-footer{
+    display: flex;
+    justify-content: center;
+}
+
+/* .todos {
+    display: flex;
+} */
