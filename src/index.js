@@ -1,7 +1,7 @@
 const formInput = document.forms.newtodo;
 const description = formInput.todotext;
 const priority = formInput.ranking;
-const deadline = formInput.querySelector("div.input-group.date")
+const deadline = formInput.querySelector("#duedate")
 
 
 
@@ -19,9 +19,7 @@ function addItem(todotext, ranking, dueDate) {
 
 function handleSubmitForm(event) {
   event.preventDefault();
-  addItem("Something to do", "urgent", "yesterday")
-  // addItem(description, priority, deadline);
+  addItem(description.value, priority.value, deadline.value)
 }
 
-  formInput.addEventListener("submit", handleSubmitForm)
-  console.log(formInput);
+  formInput.addEventListener("submit", handleSubmitForm);
