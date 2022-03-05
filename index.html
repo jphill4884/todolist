@@ -12,10 +12,14 @@
     <link rel="stylesheet" type="text/css" href="src/styles.css" />
   </head>
   <body>
+
+<!--Add new todo page-->
     <h1>Do It Now!</h1>
+    <div class="d-grid gap-2 col-6 mx-auto">
       <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#add-new-item">
         Add
       </button>
+    </div>
 
 <!--Start of PopUp 'add new todo'-->
       <div class="modal" tabindex="-1" role="dialog" id="add-new-item">
@@ -33,7 +37,7 @@
               <form name="newtodo">
                 <div class="description">
                   <label for="todotext">Description:</label>
-                  <input type="text" placeholder="What needs to be done?" name="todotext"/>
+                  <input class="form-control" id="description" type="text" placeholder="What needs to be done?" name="todotext"/>
                 </div>
                 <div class="priority">
                   <label for="ranking">Priority:</label>
@@ -44,12 +48,13 @@
                     <option value="nicetohave">Nice-To-Have</option>
                   </select>
                 </div>
-              <div class="input-group date">
+              <div class="datepicker">
+                <!-- DELETED in <div> class="input-group date" id="duedate" data-provide="datepicker" -->
                 <label for="duedate">Due Date:</label>
-                <input type="date" class="form-control" id="duedate">
-                  <div class="input-group-addon">
+                <input class="form-control" id="duedate" type="date"/>
+                  <!-- <div class="input-group-addon">
                     <span class="glyphicon glyphicon-th"></span>
-                  </div>
+                  </div> -->
               </div>
             
             </div>
