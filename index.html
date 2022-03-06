@@ -42,7 +42,7 @@
                 <div class="priority">
                   <label for="ranking">Priority:</label>
                   <select class="form-control" id="ranking">
-                    <h6 class="dropdown-header">Please Select</h6>
+                    <option selected disabled hidden>Choose Priority</option>
                     <option value="urgent">Urgent</option>
                     <option value="important">Important</option>
                     <option value="nicetohave">Nice-To-Have</option>
@@ -64,9 +64,18 @@
       </div>
 <!--End of PopUp 'add new todo'-->
       <div class="todos">
-        <div class="urgent"></div>
-        <div class="important"></div>
-        <div class="nicetohave"></div>
+        <div id="urgentsection">
+          <h3 class="sectionheader">Urgent Tasks</h3>
+          <div class="urgent"></div>
+        </div>
+        <div id="importantsection">
+          <h3 class="sectionheader">Important Tasks</h3>
+          <div class="important"></div>
+        </div>
+        <div id="nicetohavesection">
+          <h3 class="sectionheader">Nice-To-Haves</h3>
+          <div class="nicetohave"></div>
+        </div>
       </div>
       <script src="src/index.js"></script>
   </body>

@@ -73,6 +73,128 @@ form{
     justify-content: center;
 }
 
-/* .todos {
+/* Style To Do Sections */
+
+ .todos {
     display: flex;
-} */
+    flex-direction: column;
+    margin-top: 20px;;
+}
+
+h3{
+    color: black;
+    text-align: center;
+}
+
+.dateelement {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    margin: 5px;
+    width: 15%
+}
+
+.todoelement {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    margin: 5px;
+    width: 70%;
+}
+
+.todobuttons {
+    display: flex;
+    flex-direction: column;
+    margin: 5px;
+    width: 15%
+}
+
+.todobuttons > buttons {
+    margin: 5px;
+    width: 80px;
+}
+
+#complete {
+    margin-bottom: 5px;
+}
+
+/* Urgent Task Styles */
+
+#urgentsection {
+    display: flex;
+    flex-direction: column;
+    background-color: #b3b3b3;
+    min-width: 80%;
+    border-radius: 10px;
+}
+
+.urgent {
+    display: inline-block;
+    margin: 20px;
+    border-radius: 10px;
+}
+
+.urgentitem {
+    display: flex;
+    align-content: space-between;
+    font-weight: bold;
+    background-color: seashell;
+    border: 1px solid red;
+    border-radius: 10px;
+    margin-top: 5px;
+}
+
+/* Important Task Styles */
+
+#importantsection {
+    display: flex;
+    flex-direction: column;
+    background-color: #cccccc;
+    min-width: 80%;
+    border-radius: 10px;
+    margin-top: 10px;;
+}
+
+.important {
+    display: inline-block;
+    margin: 20px;
+    border-radius: 10px;
+}
+
+.importantitem {
+    display: flex;
+    align-content: space-between;
+    font-weight: bold;
+    background-color: seashell;
+    border: 1px solid yellow;
+    border-radius: 10px;
+    margin-top: 5px;
+}
+
+/* Nice-To-Have Task Styles */
+
+#nicetohavesection {
+    display: flex;
+    flex-direction: column;
+    background-color: #e6e6e6;
+    min-width: 80%;
+    border-radius: 10px;
+    margin-top: 10px;;
+}
+
+.nicetohave {
+    display: inline-block;
+    margin: 20px;
+    border-radius: 10px;
+    
+}
+
+.nicetohaveitem {
+    display: flex;
+    align-content: space-between;
+    font-weight: bold;
+    background-color: seashell;
+    border: 1px solid green;
+    border-radius: 10px;
+    margin-top: 5px;
+}
