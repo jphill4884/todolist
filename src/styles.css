@@ -118,6 +118,21 @@ h3{
     margin-bottom: 5px;
 }
 
+.status {
+    color: darkblue;
+    margin-top: 5px;
+}
+
+.statusoverdue {
+    color: darkred;
+    margin-top: 5px;
+}
+
+.statuscomplete {
+    color: darkgreen;
+    margin-top: 5px;
+}
+
 /* Urgent Task Styles */
 
 #urgentsection {
@@ -197,4 +212,11 @@ h3{
     border: 1px solid green;
     border-radius: 10px;
     margin-top: 5px;
+}
+
+/* Styling for Random Cheerful Messages */
+
+.randomMessage {
+    font-size: 1.3rem;
+    text-align: center;
 }
