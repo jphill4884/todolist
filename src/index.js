@@ -25,6 +25,8 @@ function addItem(todotext, ranking, dueDate) {
     </div>
     `;
     todoRank.innerHTML += template;
+    activateDeleteButtons();
+    activateCompleteButtons();
 }
 
 function handleSubmitForm(event) {
@@ -37,7 +39,8 @@ function handleSubmitForm(event) {
 
   function testToDos() {
     addItem("Add urgent ToDo", "urgent", "2022-03-06" );
-    //addItem("Add important ToDo", "important", "2022-03-06" );
+    addItem("Add second urgent ToDo", "urgent", "2022-03-12" );
+    addItem("Add important ToDo", "important", "2022-03-06" );
     addItem("Add nice-to-have ToDo", "nicetohave", "2022-03-06" );
   }
 
@@ -67,67 +70,69 @@ function handleSubmitForm(event) {
         addRandomMessages(message1, message2, message3);
     };
 
-    function addRandomMessages(message1, message2, message3) {
-      const messageLocation1 = document.querySelector(".urgent");
-      const messageLocation2 = document.querySelector(".important");
-      const messageLocation3 = document.querySelector(".nicetohave");
-        const messageTemplate1 = `
-        <div class="randomMessage">
-        <span>${message1}</span>
-        </div>
-        `;
-        const messageTemplate2 = `
-        <div class="randomMessage">
-        <span>${message2}</span>
-        </div>
-        `;
-        const messageTemplate3 = `
-        <div class="randomMessage">
-        <span>${message3}</span>
-        </div>
-        `;
+function addRandomMessages(message1, message2, message3) {
+  const messageLocation1 = document.querySelector(".urgent");
+  const messageLocation2 = document.querySelector(".important");
+  const messageLocation3 = document.querySelector(".nicetohave");
+  const messageTemplate1 = `
+    <div class="randomMessage">
+    <span>${message1}</span>
+    </div>
+    `;
+  const messageTemplate2 = `
+    <div class="randomMessage">
+    <span>${message2}</span>
+    </div>
+    `;
+  const messageTemplate3 = `
+    <div class="randomMessage">
+    <span>${message3}</span>
+    </div>
+    `;
 
-        if (document.querySelector(".urgentitem").length === 0) {
-          messageLocation1.innerHTML += messageTemplate1;
-        };
-        if (document.querySelector(".importantitem").length === 0) {
-          messageLocation2.innerHTML += messageTemplate2;
-        };
-        if (document.querySelector(".nicetohaveitem").length === 0) {
-          messageLocation3.innerHTML += messageTemplate3;
-        }
-    }
-
-    randomCheerGenerator();
-    
-    // Delete and Done button functions
-    
-    function activateDeleteButtons() {
-      const deleteButtons = document.querySelectorAll("#remove");
-      for (const deleteButton of deleteButtons) {
-        deleteButton.onclick = deleteTask;
-    }
+  if (document.querySelector(".urgentitem").length === 0) {
+    messageLocation1.innerHTML += messageTemplate1;
+  };
+  if (document.querySelector(".importantitem").length === 0) {
+    messageLocation2.innerHTML += messageTemplate2;
+  };
+  if (document.querySelector(".nicetohaveitem").length === 0) {
+    messageLocation3.innerHTML += messageTemplate3;
   }
+}
 
-  function deleteTask(event) {
-     const deleteLocale = event.currentTarget.getParent
-  console.log(deleteLocale);
+
+    
+// Delete and Done button functions
+    
+function activateDeleteButtons() {
+  const deleteButtons = document.querySelectorAll("#remove");
+  for (const deleteButton of deleteButtons) {
+    deleteButton.onclick = deleteTask;
+  }
+}
+
+function deleteTask(event) {
+  const deleteLocale = event.currentTarget.parentNode.parentNode.parentNode;
+  const taskIndex = event.currentTarget.parentNode.parentNode;
+  deleteLocale.removeChild(taskIndex);
   }
 
 function activateCompleteButtons() {  
-    const completeButtons = document.querySelectorAll("#complete");
-    for (const completeButton of completeButtons) {
-      completeButton.onclick = completeTask;
-    }
+  const completeButtons = document.querySelectorAll("#complete");
+  for (const completeButton of completeButtons) {
+    completeButton.onclick = completeTask;
+  }
 }    
     
 function completeTask(event) {
   const completeLocale = event.currentTarget.parentNode.parentNode;
-  const status = completeLocale.getChild;
-  console.log(completeLocale);
-  //status.className = "statuscomplete";
-  //status.innerText = "Complete";
+  const status = completeLocale.querySelector("#status");
+  status.className = "statuscomplete";
+  status.innerText = "Complete";
     }
+
     
-    activateDeleteButtons();
-    activateCompleteButtons();
+randomCheerGenerator();
+activateDeleteButtons();
+activateCompleteButtons();
