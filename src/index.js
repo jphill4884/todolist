@@ -114,13 +114,13 @@ function addRandomMessages(message1, message2, message3) {
     </div>
     `;
 
-  if (document.querySelector(".urgentitem").length === 0) {
+  if (messageLocation1 < 1) {
     messageLocation1.innerHTML += messageTemplate1;
   };
-  if (document.querySelector(".importantitem").length === 0) {
+  if (messageLocation2 < 1) {
     messageLocation2.innerHTML += messageTemplate2;
   };
-  if (document.querySelector(".nicetohaveitem").length === 0) {
+  if (messageLocation3 < 1) {
     messageLocation3.innerHTML += messageTemplate3;
   }
 }
