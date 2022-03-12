@@ -13,20 +13,22 @@ if (localStorage.getItem(APP_NAMESPACE)){
   tasks = JSON.parse(localStorage.getItem(APP_NAMESPACE));
 }
 
+console.log(tasks);
+
 function addItem(todotext, ranking, dueDate) {
   const todoRank = document.querySelector(`.${ranking}`)
     const template = `
-    <div class="${ranking}item" data-date="${new Date().toLocaleTimeString()}">
+    <div id = tasks class="${ranking}item" data-date="${new Date().toLocaleTimeString()}">
       <div class="dateelement">
         <span>Due by:</span>
-        <span>${dueDate}</span>
+        <span contentEditable="true">${dueDate}</span>
         <span id="status" class="status">Pending</span>
-        </div>
-        <div class="todoelement">
+      </div>
+      <div class="todoelement">
         <span>Task Description:</span>
-        <p>${todotext}</p>
-        </div>
-        <div class="todobuttons">
+        <p contentEditable="true">${todotext}</p>
+      </div>
+      <div class="todobuttons">
         <button id="complete" class="btn btn-success">Done!</button>
         <button id="remove" class="btn btn-danger">Remove</button>
       </div>
@@ -92,7 +94,7 @@ function cleanAndRender() {
         const message2 = messageArray[location2];
         const message3 = messageArray[location3];
         addRandomMessages(message1, message2, message3);
-    };
+};
 
 function addRandomMessages(message1, message2, message3) {
   const messageLocation1 = document.querySelector(".urgent");
@@ -114,15 +116,15 @@ function addRandomMessages(message1, message2, message3) {
     </div>
     `;
 
-  if (messageLocation1 < 1) {
+  if (messageLocation1.childElementCount < 1){
     messageLocation1.innerHTML += messageTemplate1;
   };
-  if (messageLocation2 < 1) {
+  if (messageLocation2.childElementCount < 1) {
     messageLocation2.innerHTML += messageTemplate2;
   };
-  if (messageLocation3 < 1) {
+  if (messageLocation3.childElementCount < 1) {
     messageLocation3.innerHTML += messageTemplate3;
-  }
+  };
 }
 
     
@@ -139,6 +141,7 @@ function deleteTask(event) {
   const deleteLocale = event.currentTarget.parentNode.parentNode.parentNode;
   const taskIndex = event.currentTarget.parentNode.parentNode;
   deleteLocale.removeChild(taskIndex);
+  randomCheerGenerator();
   }
 
 function activateCompleteButtons() {  
@@ -157,5 +160,25 @@ function completeTask(event) {
 
     
 randomCheerGenerator();
-activateDeleteButtons();
-activateCompleteButtons();
+activateButtons();
+
+// Edit ToDo Text and Due Date
+
+  const visibleTasks = document.querySelectorAll("#tasks");
+  for (const visibleTask of visibleTasks) {
+    visibleTask.addEventListener("keydown", addUpdateButtons);
+  }
+
+function addUpdateButtons(event) {
+  const addButtonsParent = event.currentTarget;
+  const addButtonsLocale = addButtonsParent.querySelector(".todobuttons");
+  if ( addButtonsLocale.childElementCount < 3) {
+    addButtonsLocale.innerHTML += '<button id="update" class="btn btn-secondary">Update</button>';
+    activateButtons();
+  }
+}
+
+function activateButtons() {
+  activateDeleteButtons();
+  activateCompleteButtons();
+}
