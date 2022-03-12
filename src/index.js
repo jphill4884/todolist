@@ -3,25 +3,33 @@ const description = formInput.todotext;
 const priority = formInput.ranking;
 const deadline = formInput.querySelector("#duedate")
 
+const APP_NAMESPACE = 'DoItNow';
 
+const rankings = ["urgent", 'important', 'nicetohave']
+
+let tasks = []
+
+if (localStorage.getItem(APP_NAMESPACE)){
+  tasks = JSON.parse(localStorage.getItem(APP_NAMESPACE));
+}
 
 function addItem(todotext, ranking, dueDate) {
   const todoRank = document.querySelector(`.${ranking}`)
     const template = `
     <div class="${ranking}item" data-date="${new Date().toLocaleTimeString()}">
-    <div class="dateelement">
-    <span>Due by:</span>
-    <span>${dueDate}</span>
-    <span id="status" class="status">Pending</span>
-    </div>
-    <div class="todoelement">
-    <span>Task Description:</span>
-    <p>${todotext}</p>
-    </div>
-    <div class="todobuttons">
-    <button id="complete" class="btn btn-success">Done!</button>
-    <button id="remove" class="btn btn-danger">Remove</button>
-    </div>
+      <div class="dateelement">
+        <span>Due by:</span>
+        <span>${dueDate}</span>
+        <span id="status" class="status">Pending</span>
+        </div>
+        <div class="todoelement">
+        <span>Task Description:</span>
+        <p>${todotext}</p>
+        </div>
+        <div class="todobuttons">
+        <button id="complete" class="btn btn-success">Done!</button>
+        <button id="remove" class="btn btn-danger">Remove</button>
+      </div>
     </div>
     `;
     todoRank.innerHTML += template;
@@ -31,22 +39,38 @@ function addItem(todotext, ranking, dueDate) {
 
 function handleSubmitForm(event) {
   event.preventDefault();
-  addItem(description.value, priority.value, deadline.value)
+  tasks.push({
+    name: description.value,
+    ranking:  priority.value,
+    dueDate: deadline.value
+  })
+  localStorage.setItem(APP_NAMESPACE, JSON.stringify(tasks));
+  cleanAndRender();
   formInput.reset();
 }
 
-  formInput.addEventListener("submit", handleSubmitForm);
+formInput.addEventListener("submit", handleSubmitForm);
 
-  function testToDos() {
-    addItem("Add urgent ToDo", "urgent", "2022-03-06" );
-    addItem("Add second urgent ToDo", "urgent", "2022-03-12" );
-    addItem("Add important ToDo", "important", "2022-03-06" );
-    addItem("Add nice-to-have ToDo", "nicetohave", "2022-03-06" );
+function clearElement(ranking) {
+  const element = document.querySelector(`.${ranking}`)
+  while (element.firstChild) {
+    element.removeChild(element.firstChild)
+  }
+}
+
+function cleanAndRender() {
+  rankings.forEach(ranking => clearElement(ranking) )
+  renderTodos()
+}
+
+  function renderTodos() {
+    tasks.forEach(task => addItem(task.name, task.ranking, task.dueDate))
   }
 
-  testToDos();
+  renderTodos();
 
   // Cheerful message when the section is empty
+
 
   const messageArray = [["Nothing on the agenda for today. Time for a coffee!"],
                          ["There's nothing to see here. Get back to your knitting."],
@@ -100,7 +124,6 @@ function addRandomMessages(message1, message2, message3) {
     messageLocation3.innerHTML += messageTemplate3;
   }
 }
-
 
     
 // Delete and Done button functions
