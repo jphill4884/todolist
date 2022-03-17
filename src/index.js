@@ -128,7 +128,7 @@ function addRandomMessages(message1, message2, message3) {
 }
 
     
-// Delete and Done button functions
+// Delete tasks
     
 function activateDeleteButtons() {
   const deleteButtons = document.querySelectorAll("#remove");
@@ -143,6 +143,8 @@ function deleteTask(event) {
   deleteLocale.removeChild(taskIndex);
   randomCheerGenerator();
   }
+
+ // Mark tasks as complete
 
 function activateCompleteButtons() {  
   const completeButtons = document.querySelectorAll("#complete");
@@ -178,7 +180,23 @@ function addUpdateButtons(event) {
   }
 }
 
+function activateUpdateButtons() {
+  const updateButtons = document.querySelectorAll("#update");
+  for (const updateButton of updateButtons) {
+    updateButton.onclick = updateTask;
+  }
+}
+
+function updateTask (event) {
+  const updateButton = event.currentTarget.parentNode.parentNode;
+  const dueDate = updateButton.querySelector(".dateelement");
+  const taskText = updateButton.querySelector(".todoelement");
+  console.log(updateButton);
+}
+
+
 function activateButtons() {
   activateDeleteButtons();
   activateCompleteButtons();
+  activateUpdateButtons();
 }
