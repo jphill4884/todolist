@@ -50,6 +50,7 @@ function handleSubmitForm(event) {
   cleanAndRender();
   formInput.reset();
 }
+console.log(localStorage);
 
 formInput.addEventListener("submit", handleSubmitForm);
 
@@ -141,6 +142,7 @@ function deleteTask(event) {
   const deleteLocale = event.currentTarget.parentNode.parentNode.parentNode;
   const taskIndex = event.currentTarget.parentNode.parentNode;
   deleteLocale.removeChild(taskIndex);
+  localStorage.removeItem(APP_NAMESPACE, JSON.stringify(tasks));
   randomCheerGenerator();
   }
 
@@ -174,6 +176,7 @@ function addUpdateButtons(event) {
   const addButtonsLocale = addButtonsParent.querySelector(".todobuttons");
   if ( addButtonsLocale.childElementCount < 3) {
     addButtonsLocale.innerHTML += '<button id="update" class="btn btn-secondary">Update</button>';
+    //update localStorrage
     activateButtons();
   }
 }
