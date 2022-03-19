@@ -8,16 +8,12 @@ const APP_NAMESPACE = 'DoItNow';
 
 const rankings = ["urgent", 'important', 'nicetohave']
 
-let tasks = [] // map forEach every filter find some reduce...
-
-// tasks.filter(task => task.id === otherId)[0]
-// tasks.find(task => task.id === otherId)
+let tasks = [] 
 
 if (localStorage.getItem(APP_NAMESPACE)){
   tasks = JSON.parse(localStorage.getItem(APP_NAMESPACE));
 }
 
-// console.log(tasks);
 
 function addItem(todotext, ranking, dueDate, taskID) {
   const todoRank = document.querySelector(`.${ranking}`)
@@ -25,7 +21,7 @@ function addItem(todotext, ranking, dueDate, taskID) {
     <div id="tasks" class="${ranking}item" data-value="${taskID}">
       <div class="dateelement">
         <span>Due by:</span>
-        <span contentEditable="true">${dueDate}</span>
+        <span class="changeduedate" contentEditable="true">${dueDate}</span>
         <span id="status" class="status">Pending</span>
       </div>
       <div class="todoelement">
@@ -42,12 +38,6 @@ function addItem(todotext, ranking, dueDate, taskID) {
     activateButtons();
 
 }
-// const lastTaskId = 0;
-
-// if ( tasks.length > 0) {
-//   lastTaskId = tasks[tasks.length -1].id;
-// console.log(lastTaskId);
-// }
 
 function handleSubmitForm(event) {
 const lastTaskId = tasks.length === 0 ? 0 : tasks[tasks.length -1].id;
@@ -152,39 +142,14 @@ function activateDeleteButtons() {
   }
 }
 
-// function deleteTask(event) {
-//   const deleteLocale = event.currentTarget.parentNode.parentNode.parentNode;
-//   const taskIndex = event.currentTarget.parentNode.parentNode;
-//   deleteLocale.removeChild(taskIndex);
-//   localStorage.removeItem(APP_NAMESPACE, JSON.stringify(tasks));
-//   randomCheerGenerator();
-//   }
-
   function deleteTask (event) {
-    // 1. capture what the user has written and the id of the task
     const DOMTaskToDelete = event.currentTarget.closest("#tasks");
-    // .querySelector(".myClass") from top to bottom
-    // .closest(".myClass") from bottom to top
-    const deleteTaskId = DOMTaskToDelete.dataset.value && +DOMTaskToDelete.dataset.value; // retrieved as a string, need to cast it as an integer: parseInt(DOMUpdatedTask.dataset.value, 10) or Number(DOMUpdatedTask.dataset.value);
-    // console.log(deleteTaskId);
-    // console.log({ DOMTaskToDelete, taskId});
-  
-    // 2. update the task in memory (by using its task id) ===> with updatedText + the Id of the task to update
-    // 2a. Find the specific task to update
-    // tasks.find(task => task.id === otherId)
-    //const taskToDelete = tasks.find(task => task.id === taskId);
-    //console.log(taskToDelete);
-    // 2b.  Delete the task in memory
+    const DOMTaskParent = DOMTaskToDelete.parentNode;
+    const deleteTaskId = DOMTaskToDelete.dataset.value && +DOMTaskToDelete.dataset.value; 
     const taskIndex = tasks.findIndex(deleteTask => deleteTask.id === deleteTaskId);
     const deletedTask = tasks.splice(taskIndex,1);
-
-    console.log(taskIndex);
-    console.log(tasks);
-    console.log(deletedTask);
-
-
-    // 3. set the local storage
     localStorage.setItem(APP_NAMESPACE, JSON.stringify(tasks));
+    DOMTaskParent.removeChild(DOMTaskToDelete);
     randomCheerGenerator();
   }
 
@@ -209,6 +174,7 @@ randomCheerGenerator();
 activateButtons();
 
 // Edit ToDo Text and Due Date
+
 function listenForUpdates() {
   const visibleTasks = document.querySelectorAll("#tasks");
   for (const visibleTask of visibleTasks) {
@@ -222,7 +188,6 @@ function addUpdateButtons(event) {
   if ( addButtonsLocale.childElementCount < 3) {
     addButtonsLocale.innerHTML += '<button id="update" class="btn btn-secondary">Update</button>';
     activateButtons();
-    // console.log(addButtonsLocale);
   }
 }
 
@@ -234,27 +199,15 @@ function activateUpdateButtons() {
 }
 
 function updateTask (event) {
-  // missing the part where you actually save something
-  // 1. capture what the user has written and the id of the task
   const DOMUpdatedTask = event.currentTarget.closest("#tasks");
-  // .querySelector(".myClass") from top to bottom
-  // .closest(".myClass") from bottom to top
-  const taskId = DOMUpdatedTask.dataset.value && +DOMUpdatedTask.dataset.value; // retrieved as a string, need to cast it as an integer: parseInt(DOMUpdatedTask.dataset.value, 10) or Number(DOMUpdatedTask.dataset.value);
+  const taskId = DOMUpdatedTask.dataset.value && +DOMUpdatedTask.dataset.value;
   const updatedText = DOMUpdatedTask.querySelector("p").textContent
-  
-  // console.log({ taskToUpdate, taskId, updatedText });
-
-  // 2. update the task in memory (by using its task id) ===> with updatedText + the Id of the task to update
-  // 2a. Find the specific task to update
-  // tasks.find(task => task.id === otherId)
+  const updatedDate = DOMUpdatedTask.querySelector(".changeduedate").textContent
   const taskToUpdate = tasks.find(task => task.id === taskId);
-  // console.log(taskToUpdate);
-  // 2b.  Update the task in memory with the updatedText
   taskToUpdate.name = updatedText;
-  // console.log(tasks);
-
-  // 3. set the local storage
+  taskToUpdate.dueDate = updatedDate;
   localStorage.setItem(APP_NAMESPACE, JSON.stringify(tasks));
+  console.log(updatedDate);
 }
   
 
