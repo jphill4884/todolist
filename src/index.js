@@ -209,9 +209,11 @@ function updateTask (event) {
   const taskId = DOMUpdatedTask.dataset.value && +DOMUpdatedTask.dataset.value;
   const updatedText = DOMUpdatedTask.querySelector("p").textContent
   const updatedDate = DOMUpdatedTask.querySelector(".changeduedate").textContent
+  const updateButtonRemove = DOMUpdatedTask.querySelector(".todobuttons");
   const taskToUpdate = tasks.find(task => task.id === taskId);
   taskToUpdate.name = updatedText;
   taskToUpdate.dueDate = updatedDate;
+  updateButtonRemove.removeChild(updateButtonRemove.lastChild);
   localStorage.setItem(APP_NAMESPACE, JSON.stringify(tasks));
 }
   
