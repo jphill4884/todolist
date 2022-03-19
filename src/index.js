@@ -42,6 +42,7 @@ function addItem(todotext, ranking, dueDate) {
 function handleSubmitForm(event) {
   event.preventDefault();
   tasks.push({
+    id: tasks.length + 1,
     name: description.value,
     ranking:  priority.value,
     dueDate: deadline.value
@@ -194,7 +195,6 @@ function updateTask (event) {
   const updateButton = event.currentTarget.parentNode.parentNode;
   const dueDate = updateButton.querySelector(".dateelement");
   const taskText = updateButton.querySelector(".todoelement");
-  console.log(updateButton);
 }
 
 
