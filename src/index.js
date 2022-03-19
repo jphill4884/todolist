@@ -2,6 +2,7 @@ const formInput = document.forms.newtodo;
 const description = formInput.todotext;
 const priority = formInput.ranking;
 const deadline = formInput.querySelector("#duedate");
+const taskStatus = "Pending";
 
 
 const APP_NAMESPACE = 'DoItNow';
@@ -15,14 +16,14 @@ if (localStorage.getItem(APP_NAMESPACE)){
 }
 
 
-function addItem(todotext, ranking, dueDate, taskID) {
+function addItem(todotext, ranking, dueDate, taskID, currentStatus) {
   const todoRank = document.querySelector(`.${ranking}`)
     const template = `
     <div id="tasks" class="${ranking}item" data-value="${taskID}">
       <div class="dateelement">
         <span>Due by:</span>
         <span class="changeduedate" contentEditable="true">${dueDate}</span>
-        <span id="status" class="status">Pending</span>
+        <span id="status" class="status">${currentStatus}</span>
       </div>
       <div class="todoelement">
         <span>Task Description:</span>
@@ -46,12 +47,13 @@ const lastTaskId = tasks.length === 0 ? 0 : tasks[tasks.length -1].id;
     id: lastTaskId + 1,
     name: description.value,
     ranking:  priority.value,
-    dueDate: deadline.value
+    dueDate: deadline.value,
+    currentStatus: taskStatus
   })
   localStorage.setItem(APP_NAMESPACE, JSON.stringify(tasks));
   cleanAndRender();
   formInput.reset();
-
+console.log(currentStatus);
 }
 
 formInput.addEventListener("submit", handleSubmitForm);
@@ -71,7 +73,7 @@ function cleanAndRender() {
 }
 
   function renderTodos() {
-    tasks.forEach(task => addItem(task.name, task.ranking, task.dueDate, task.id))
+    tasks.forEach(task => addItem(task.name, task.ranking, task.dueDate, task.id, task.currentStatus))
   }
 
   renderTodos();
@@ -163,10 +165,14 @@ function activateCompleteButtons() {
 }    
     
 function completeTask(event) {
-  const completeLocale = event.currentTarget.parentNode.parentNode;
-  const status = completeLocale.querySelector("#status");
-  status.className = "statuscomplete";
-  status.innerText = "Complete";
+  const DOMUpdatedStatus = event.currentTarget.closest("#tasks");
+  const taskId = DOMUpdatedStatus.dataset.value && +DOMUpdatedStatus.dataset.value;
+  const updateStatus = DOMUpdatedStatus.querySelector("#status")
+  const taskToUpdate = tasks.find(task => task.id === taskId);
+  //updateStatus.className = "statuscomplete";
+  updateStatus.innerText = "Complete";
+  taskToUpdate.currentStatus = "Complete";
+  localStorage.setItem(APP_NAMESPACE, JSON.stringify(tasks));
     }
 
     
@@ -207,7 +213,6 @@ function updateTask (event) {
   taskToUpdate.name = updatedText;
   taskToUpdate.dueDate = updatedDate;
   localStorage.setItem(APP_NAMESPACE, JSON.stringify(tasks));
-  console.log(updatedDate);
 }
   
 
